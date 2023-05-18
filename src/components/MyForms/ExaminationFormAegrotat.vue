@@ -17,6 +17,9 @@
                 </div>
             </div>
         </div>
+        <div>
+            <button type="button" class="btn btn-light" @click="addAreaFormAegrot">+</button>
+        </div>
     </div>
 </template>
 
@@ -31,8 +34,15 @@
                     {'name' : 'N', 'start' : 'c', 'end' : 'по'},
                 ]
             }
-        }
+        },
+        methods:{
+            addAreaFormAegrot(){
+                this.ListFormAegrotat.push(
+                    {'name' : 'N', 'start' : 'c', 'end' : 'по'}
+                )
+            }
     }
+}
 </script>
 
 <style lang="scss" scoped>

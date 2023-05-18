@@ -1,8 +1,10 @@
 <template>
+
     <div class="form-group row mb-3">
         <div class="mb-3">
             <label for="FullName" class="form-label">1. Фамилия Имя Отчество</label>
-            <input type="text" class="form-control" id="FullName" v-model="FullName">
+
+            <input type="text" class="form-control" id="FullName" v-model="FullName" @change="getAnswer">
         </div>
     </div>
 
@@ -182,20 +184,39 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Multiselect from 'vue-multiselect'
     export default {
         name: 'ExaminationFormPersonalData',
+        components:{Multiselect},
         data(){
             return{
                 FullName: "",
-                len: 0
+                listAllFullNames: [],
+                value: 1,
+                options: ['list', 'of', 'options']
             }
+            
         },
-        created(){
-            console.log(this.$store.getters.GetLen)
-        }   
+        methods:{
+            
+            getAnswer: function(){
+                if(this.FullName.length < 4){
+                    return;
+                }
+                let self = this;    
+                console.log('robit');
+                axios.post('https://profchaos.ru/api/bmspr2/patients',
+                {family:self.FullName},
+                {headers:{
+                    "content-type": "application/json"
+                }}
+                ).then(function(result){
+                    console.log(result);
+                })
+            }
+        }
+
     }
 </script>
-
-<style>
-
-</style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
